@@ -1,0 +1,12 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class DontDestroyAudio : MonoBehaviour
+{
+    private void Awake()
+    {
+        DontDestroyOnLoad(transform.gameObject);
+        // when we move to new scene it wont destroy the game object
+    }
+}
