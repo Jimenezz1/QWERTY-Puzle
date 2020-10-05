@@ -1,2 +1,2 @@
-# QWERTY-Puzle
+# QWERTY-Puzzle
 Projecto de desarollo de videjuegos C# y Unity
