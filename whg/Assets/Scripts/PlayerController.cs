@@ -22,7 +22,10 @@ public class PlayerController : MonoBehaviour
 
     public float mouseSpeed = 100f;
 
+    public AudioSource destroySound;
+    AudioSource audioSource;
 
+    AudioSource winSound;
 
     public Text winText;
 
@@ -49,6 +52,11 @@ public class PlayerController : MonoBehaviour
 
     
         Cursor.lockState = CursorLockMode.Locked;
+
+        audioSource = GetComponent<AudioSource>();
+
+        winSound = GetComponent<AudioSource>();
+        
 
 
 
@@ -79,30 +87,56 @@ public class PlayerController : MonoBehaviour
         
     }
 
+    private IEnumerator waitBeforeShow()
+    {
+        yield return new WaitForSeconds(0.5f);
+
+        SceneManager.LoadScene(scene.name);
+    }
+
+    private IEnumerator waitAfterClear()
+    {
+        yield return new WaitForSeconds(1.0f);
+        
+        
+        SceneManager.LoadScene(nextSceneToLoad);
+
+    }
+
    
     void OnTriggerEnter(Collider other)
 	{
-        if (other.gameObject.tag == "Enemy" || other.gameObject.tag == "Enemy2")
+        if (other.gameObject.tag == "Enemy" || other.gameObject.tag == "Enemy2")   
         {
+            // wait for seconds
 
-            SceneManager.LoadScene(scene.name);
+            rb.velocity = Vector3.zero;
 
-        } else if (other.gameObject.tag == "Win" || count == 9)
-    {
-            SceneManager.LoadScene(nextSceneToLoad);
+            StartCoroutine(waitBeforeShow());
+            
+        }
+
+        else if (other.gameObject.tag == "Win" || count == 9)
+        {
+            // wait for seconds
+           
+
+            StartCoroutine(waitAfterClear());
         }
         else if (other.gameObject.tag == "Pickup")
-		{
-          other.gameObject.SetActive(false);
+        {
+            other.gameObject.SetActive(false);
             count += 1;
-        } else if(other.gameObject.tag == "Ganar")
-		{
+        }
+        else if (other.gameObject.tag == "Ganar")
+        {
             Destroy(this.gameObject);
             winText.text = "You win!";
-		} else if(other.gameObject.tag == "Boost")
+        }
+        else if (other.gameObject.tag == "Boost")
         {
             speed = 25f;
-          
+
         }
 
     }
@@ -116,6 +150,7 @@ public class PlayerController : MonoBehaviour
         {
             SphereOnGround = false;
         }
+    
         
     }
 

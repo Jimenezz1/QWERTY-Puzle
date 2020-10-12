@@ -8,6 +8,7 @@ public class Guard : MonoBehaviour
     public float speed = 150f;
 
     public float waitTime = .3f;
+   AudioSource destroySound;
 
     void OnDrawGizmos()
     {
@@ -49,6 +50,9 @@ public class Guard : MonoBehaviour
 
     void Start()
 	{
+
+        destroySound = GetComponent<AudioSource>();
+
         Vector3[] waypoints = new Vector3[pathHolder.childCount];
 
         for(int iX = 0; iX < waypoints.Length; iX++)
@@ -58,6 +62,17 @@ public class Guard : MonoBehaviour
 		}
 
         StartCoroutine(FollowPath(waypoints));
-	}
 
+        
+
+    }
+    // destroySound.Play();
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "Player")
+        {
+            destroySound.Play();
+        }
+    }
 }

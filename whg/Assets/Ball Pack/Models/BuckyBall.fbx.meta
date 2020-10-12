@@ -25,7 +25,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: No Name
-    second: {fileID: 2100000, guid: 3a50522924f3c5147abde2a5b6e596b6, type: 2}
+    second: {fileID: 2100000, guid: faa1899cff6044e35931967e2fbedf11, type: 2}
   materials:
     importMaterials: 1
     materialName: 3
